@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Database\" />
+		<Folder Include="wwwroot\" />
+		<Folder Include="Data\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.4" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.4" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\VNet.Web.BaseCore\VNet.Web.BaseCore.csproj" />
+	  <ProjectReference Include="..\VNet.Web.Database\VNet.Web.Database.csproj" />
+	</ItemGroup>
+	
+	<Target Name="CopyDataAfterBuild" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<DataFile Include="Data\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DataFile)" DestinationFolder="$(OutDir)\..\Data\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyDataAfterPublish" AfterTargets="Publish">
+		<ItemGroup>
+			<DataFile Include="Data\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DataFile)" DestinationFolder="$(PublishDir)\..\Data\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyDatabaseAfterBuild" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<DatabaseFile Include="Database\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DatabaseFile)" DestinationFolder="$(OutDir)\..\Database\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyDatabaseAfterPublish" AfterTargets="Publish">
+		<ItemGroup>
+			<DatabaseFile Include="Database\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DatabaseFile)" DestinationFolder="$(PublishDir)\..\Database\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyWwwrootAfterBuild" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<WwwrootFile Include="wwwroot\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(WwwrootFile)" DestinationFolder="$(OutDir)\..\wwwroot\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyWwwrootAfterPublish" AfterTargets="Publish">
+		<ItemGroup>
+			<WwwrootFile Include="wwwroot\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(WwwrootFile)" DestinationFolder="$(PublishDir)\..\wwwroot\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyModulesAfterBuild" AfterTargets="AfterBuild">
+		<ItemGroup>
+			<WwwrootFile Include="Modules\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(WwwrootFile)" DestinationFolder="$(OutDir)\..\Modules\%(RecursiveDir)" />
+	</Target>
+	<Target Name="CopyModulesAfterPublish" AfterTargets="Publish">
+		<ItemGroup>
+			<WwwrootFile Include="Modules\**" />
+		</ItemGroup>
+		<Copy SourceFiles="@(WwwrootFile)" DestinationFolder="$(PublishDir)\..\Modules\%(RecursiveDir)" />
+	</Target>
+
+</Project>
