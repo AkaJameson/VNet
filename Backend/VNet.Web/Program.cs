@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using VNet.EntityFramework.AutoMigration;
 using VNet.Utilites;
+using VNet.Web.BaseCore;
 using VNet.Web.BaseCore.Config;
 using VNet.Web.BaseCore.Logs;
-using VNet.Web.Database;
 
 namespace VNet.Web
 {
@@ -14,18 +14,18 @@ namespace VNet.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             try
             {
-                // 1. 加载XML配置
+                // 加载XML配置
                 builder.Services.AddXmlConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "Data", "AppConfig.xml"));
-
+                // 注册框架加密方法
+                builder.Services.AddSingleton<IVNetCryptoProvider, VNetCryptoProvider>();
                 // 获取配置实例
                 var appConfig = ConfigManager.Instance.GetConfig();
                 var swaggerConfig = appConfig.Swagger;
                 var globalExceptionConfig = appConfig.GlobalException;
 
-                // 2. 配置CORS
+                // 配置CORS
                 var allowOrigins = ConfigManager.Instance.GetAllowOrigins();
 
                 builder.Services.AddCors(options =>
@@ -132,7 +132,6 @@ namespace VNet.Web
                                     path = context.Request.Path.Value
                                 };
 
-                                // 记录错误日志
                                 var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
                                 logger.LogError(error.Error, "全局异常处理捕获到异常: {Message}", error.Error.Message);
 

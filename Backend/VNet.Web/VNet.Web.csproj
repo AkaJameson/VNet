@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\VNet.Web.BaseCore\VNet.Web.BaseCore.csproj" />
-	  <ProjectReference Include="..\VNet.Web.Database\VNet.Web.Database.csproj" />
 	</ItemGroup>
 	
 	<Target Name="CopyDataAfterBuild" AfterTargets="AfterBuild">

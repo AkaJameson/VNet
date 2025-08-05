@@ -1,8 +1,5 @@
-﻿namespace VNet.Web.Database.Data
+﻿namespace VNet.Web.BaseCore.Data
 {
-    /// <summary>
-    /// 用户信息表
-    /// </summary>
     public class UserProfile
     {
         public int Id { get; set; }
@@ -14,7 +11,6 @@
         public DateTime? Birthday { get; set; }
         public string? Address { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime? UpdatedAt { get; set; }
-        public User User { get; set; } = null!;
+        public User User { get; set; }
     }
 }

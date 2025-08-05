@@ -1,4 +1,6 @@
-﻿namespace VNet.Web.Database.Data
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VNet.Web.BaseCore.Data
 {
     /// <summary>
     /// 角色权限关联表
