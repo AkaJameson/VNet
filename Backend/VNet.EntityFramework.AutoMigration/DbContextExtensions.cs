@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using VNet.EntityFramework.AutoMigration;
 using VNet.EntityFramework.AutoMigration.Configuration;
 using VNet.EntityFramework.AutoMigration.Core;
 
@@ -13,8 +11,9 @@ namespace VNet.EntityFramework.AutoMigration
     /// </summary>
     public static class DbContextExtensions
     {
-        public static void AddAutoMigrationProvider(this IServiceCollection services)
+        public static void AddAutoMigrationProvider<TContext>(this IServiceCollection services) where TContext : DbContext
         {
+            services.AddScoped<DbContext, TContext>();
             services.AddScoped<MigrationExecuter>();
             services.AddScoped<MigrationStepProcessor>();
         }

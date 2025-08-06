@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VNet.Web.BaseCore.Data;
 
-namespace VNet.Web.BaseCore
+namespace VNet.Web.BaseCore.Database
 {
     public class VNetDbContext : DbContext
     {

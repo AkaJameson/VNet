@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using VNet.EntityFramework.AutoMigration;
 using VNet.Utilites;
-using VNet.Web.BaseCore;
 using VNet.Web.BaseCore.Config;
+using VNet.Web.BaseCore.Database;
 using VNet.Web.BaseCore.Logs;
 
 namespace VNet.Web
@@ -99,6 +99,7 @@ namespace VNet.Web
 
                 builder.AddLogging();
                 builder.Services.AddConfiguredDatabase<VNetDbContext>();
+                builder.Services.AddAutoMigrationProvider<VNetDbContext>();
                 builder.Services.AddConfiguredRedis();
                 builder.Services.AddControllers();
                 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -106,9 +107,6 @@ namespace VNet.Web
                     options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                     options.SerializerOptions.WriteIndented = true;
                 });
-                builder.Services.AddScoped<DbContext, VNetDbContext>();
-                builder.Services.AddAutoMigrationProvider();
-
                 var app = builder.Build();
                 ShellScope.RegisterShellScope(app.Services);
                 if (globalExceptionConfig.IsEnable)

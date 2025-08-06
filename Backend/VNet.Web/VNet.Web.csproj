@@ -10,6 +10,8 @@
 		<Folder Include="Database\" />
 		<Folder Include="wwwroot\" />
 		<Folder Include="Data\" />
+		<Folder Include="ServiceImpl\" />
+		<Folder Include="IService\" />
 	</ItemGroup>
 
 	<ItemGroup>
